@@ -32,6 +32,15 @@ accelerator:
         name: deploymentType
         value: workload
 
+    - name: addJavaVersion
+      inputType: checkbox
+      label: "Add Java 17 Build Environment (BP_JVM_VERSION)"
+      dataType: boolean
+      defaultValue: true
+      dependsOn:
+        name: deploymentType
+        value: workload
+
     - name: includeHasTests
       inputType: checkbox
       label: "This is a uat workload"
@@ -81,6 +90,11 @@ engine:
           substitutions:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
+        - type: ReplaceText
+          condition: "#addJavaVersion"
+          substitutions:
+            - text: "spec:"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
 
     - condition: "#deploymentType == 'workload' && #includeHasTests"
       include: ["workload-uat.yaml"]
@@ -102,16 +116,19 @@ engine:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
         - type: ReplaceText
-          condition: "#includeHasTests"
           substitutions:
             - text: "TEST_PROCESS"
               with: "#testProcess"
         - type: ReplaceText
-          condition: "#includeHasTests"
           substitutions:
             - text: "  labels:"
               with: "'  labels:\n    apps.tanzu.vmware.com/has-tests: \"true\"'"
-      
+        - type: ReplaceText
+          condition: "#addJavaVersion"
+          substitutions:
+            - text: "spec:"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
+
     - condition: "#deploymentType == 'deliverable'"
       include: ["deliverable.yaml"]
       chain:
