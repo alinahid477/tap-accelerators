@@ -59,19 +59,19 @@ engine:
       chain:
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAME
+            - text: "WORKLOAD_NAME"
               with: "#artifactId"
-              
+
     - condition: "#deploymentType == 'workload' && !#includeHasTests"
       include: ["workload-dev.yaml", "catalog-info.yaml"]
       chain:
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAME
+            - text: "WORKLOAD_NAME"
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAMESPACE
+            - text: "WORKLOAD_NAMESPACE"
               with: "#namespaceName"
         - type: ReplaceText
           substitutions:
@@ -79,7 +79,7 @@ engine:
               with: "#gitRepository"
         - type: ReplaceText
           substitutions:
-            - text: GIT_BRANCH
+            - text: "GIT_BRANCH"
               with: "#gitBranch"
 
     - condition: "#deploymentType == 'workload' && #includeHasTests"
@@ -87,11 +87,11 @@ engine:
       chain:
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAME
+            - text: "WORKLOAD_NAME"
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAMESPACE
+            - text: "WORKLOAD_NAMESPACE"
               with: "#namespaceName"
         - type: ReplaceText
           substitutions:
@@ -99,12 +99,12 @@ engine:
               with: "#gitRepository"
         - type: ReplaceText
           substitutions:
-            - text: GIT_BRANCH
+            - text: "GIT_BRANCH"
               with: "#gitBranch"
         - type: ReplaceText
           condition: "#includeHasTests"
           substitutions:
-            - text: TEST_PROCESS
+            - text: "TEST_PROCESS"
               with: "#testProcess"
         - type: ReplaceText
           condition: "#includeHasTests"
@@ -117,10 +117,10 @@ engine:
       chain:
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAME
+            - text: "WORKLOAD_NAME"
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: WORKLOAD_NAMESPACE
+            - text: "WORKLOAD_NAMESPACE"
               with: "#namespaceName"
         
