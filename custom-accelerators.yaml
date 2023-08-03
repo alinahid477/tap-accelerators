@@ -3,6 +3,7 @@ apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
 kind: Fragment
 metadata:
   name: deployment-intialise
+  namespace: accelerator-system
 spec:
   git:
     ref:
