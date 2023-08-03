@@ -16,7 +16,7 @@ accelerator:
       defaultValue: "default"
   
   imports:
-    - name: tap-initialize
+    - name: deployment-initialise
     - name: tap-workload
     - name: live-update
 
