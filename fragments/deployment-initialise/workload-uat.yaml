@@ -3,7 +3,7 @@ apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
   name: WORKLOAD_NAME
-  namespace: WORKLOAD_NAMESPACE
+  namespace: DEPLOYMENT_NAMESPACE
   labels:
     apps.tanzu.vmware.com/workload-type: web
     apis.apps.tanzu.vmware.com/register-api: "true"

@@ -2,7 +2,7 @@ apiVersion: carto.run/v1alpha1
 kind: Deliverable
 metadata:
   name: WORKLOAD_NAME
-  namespace: WORKLOAD_NAMESPACE
+  namespace: DEPLOYMENT_NAMESPACE
   labels:
     app.tanzu.vmware.com/deliverable-type: web #! required to select ootb-delivery-basic
     app.kubernetes.io/part-of: WORKLOAD_NAME
@@ -12,7 +12,7 @@ metadata:
     carto.run/supply-chain-name: source-test-scan-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: WORKLOAD_NAME
-    carto.run/workload-namespace: WORKLOAD_NAMESPACE
+    carto.run/workload-namespace: DEPLOYMENT_NAMESPACE
 spec:
   source:
     git:

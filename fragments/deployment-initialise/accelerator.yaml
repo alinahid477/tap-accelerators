@@ -71,7 +71,7 @@ engine:
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: "WORKLOAD_NAMESPACE"
+            - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
         - type: ReplaceText
           substitutions:
@@ -91,7 +91,7 @@ engine:
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: "WORKLOAD_NAMESPACE"
+            - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
         - type: ReplaceText
           substitutions:
@@ -121,6 +121,6 @@ engine:
               with: "#artifactId"
         - type: ReplaceText
           substitutions:
-            - text: "WORKLOAD_NAMESPACE"
+            - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
         
