@@ -18,7 +18,7 @@ accelerator:
   imports:
     - name: deployment-initialise
     - name: tap-workload
-    - name: live-update
+    - name: live-update          
 
 engine:
   merge:

@@ -59,10 +59,6 @@ engine:
       chain:
         - type: ReplaceText
           substitutions:
-            - text: "https://git.example.com/my-repo"
-              with: "#gitRepository"
-        - type: ReplaceText
-          substitutions:
             - text: WORKLOAD_NAME
               with: "#artifactId"
         - type: ReplaceText
@@ -70,6 +66,12 @@ engine:
             - text: WORKLOAD_NAMESPACE
               with: "#namespaceName"
         - type: ReplaceText
+          condition: "#deploymentType == 'workload'"
+          substitutions:
+            - text: "https://git.example.com/my-repo"
+              with: "#gitRepository"
+        - type: ReplaceText
+          condition: "#deploymentType == 'workload'"
           substitutions:
             - text: GIT_BRANCH
               with: "#gitBranch"
