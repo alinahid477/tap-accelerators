@@ -2,7 +2,7 @@
 
 ## Working on your WORKLOAD_NAME project
 
-### Deploying to Kubernetes as a TAP workload with Tanzu CLI
+### Deploying to Kubernetes as a TAP workload 
 
 During development phase 
 
@@ -14,6 +14,12 @@ Once ready for uat
 
 ```
 kubectl apply -f workload-uat.yaml
+```
+
+### Deploying to Kubernetes as a TAP Deliverable
+
+```
+kubectl apply -f deliverable.yaml
 ```
 
 ### Accessing the app deployed to your cluster

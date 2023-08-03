@@ -34,7 +34,7 @@ accelerator:
 
     - name: includeHasTests
       inputType: checkbox
-      label: "Include 'has-tests' label for Workloads"
+      label: "This is a uat workload"
       dataType: boolean
       defaultValue: false
       dependsOn:
@@ -55,7 +55,15 @@ accelerator:
 
 engine:
   merge:
-    - include: ["**/*"]
+    - include: ["DEPLOYING.md"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAME
+              with: "#artifactId"
+              
+    - condition: "#deploymentType == 'workload' && !#includeHasTests"
+      include: ["workload-dev.yaml", "catalog-info.yaml"]
       chain:
         - type: ReplaceText
           substitutions:
@@ -66,12 +74,30 @@ engine:
             - text: WORKLOAD_NAMESPACE
               with: "#namespaceName"
         - type: ReplaceText
-          condition: "#deploymentType == 'workload'"
           substitutions:
             - text: "https://git.example.com/my-repo"
               with: "#gitRepository"
         - type: ReplaceText
-          condition: "#deploymentType == 'workload'"
+          substitutions:
+            - text: GIT_BRANCH
+              with: "#gitBranch"
+
+    - condition: "#deploymentType == 'workload' && #includeHasTests"
+      include: ["workload-uat.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAME
+              with: "#artifactId"
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAMESPACE
+              with: "#namespaceName"
+        - type: ReplaceText
+          substitutions:
+            - text: "https://git.example.com/my-repo"
+              with: "#gitRepository"
+        - type: ReplaceText
           substitutions:
             - text: GIT_BRANCH
               with: "#gitBranch"
@@ -85,9 +111,16 @@ engine:
           substitutions:
             - text: "  labels:"
               with: "'  labels:\n    apps.tanzu.vmware.com/has-tests: \"true\"'"
-    - condition: "#deploymentType == 'workload'"
-      exclude: ["deliverable.yaml"]
-    - condition: "!#includeHasTests && #deploymentType == 'workload'"
-      exclude: ["workload-uat.yaml"]
-    - condition: "#deploymentType == 'delivery'"
-      exclude: ["workload-*.yaml", "catalog-into.yaml"]
+      
+    - condition: "#deploymentType == 'deliverable'"
+      include: ["deliverable.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAME
+              with: "#artifactId"
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAMESPACE
+              with: "#namespaceName"
+        
