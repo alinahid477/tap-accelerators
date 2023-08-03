@@ -1,0 +1,38 @@
+---
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: WORKLOAD_NAME
+  namespace: WORKLOAD_NAMESPACE
+  labels:
+    apps.tanzu.vmware.com/workload-type: web
+    apis.apps.tanzu.vmware.com/register-api: "true"
+    app.kubernetes.io/part-of: WORKLOAD_NAME
+spec:
+  source:
+    git:
+      ref:
+        branch: GIT_BRANCH
+      url: https://git.example.com/my-repo
+  env:
+    - name: spring_profiles_active
+      value: pgsql
+    - name: GREETING_TEXT
+      value: welcome-from-env
+  serviceClaims:
+    - name: db
+      ref:
+        apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+        kind: ResourceClaim
+        name: db-access-secret-resource-claim
+  params:
+    - name: api_descriptor
+      value:
+        type: openapi
+        location: 
+          path: "/v3/api-docs"
+        system: WORKLOAD_NAME
+        owner: default-team
+        description: "Simple Webapp API"
+    - name: testing_pipeline_matching_labels # multi-pipeline functionality
+      value: {"apps.tanzu.vmware.com/pipeline":"test", "apps.tanzu.vmware.com/language":"TEST_PROCESS"} # multi-pipeline functionality

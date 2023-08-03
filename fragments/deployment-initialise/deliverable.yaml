@@ -1,0 +1,24 @@
+apiVersion: carto.run/v1alpha1
+kind: Deliverable
+metadata:
+  name: WORKLOAD_NAME
+  namespace: WORKLOAD_NAMESPACE
+  labels:
+    app.tanzu.vmware.com/deliverable-type: web #! required to select ootb-delivery-basic
+    app.kubernetes.io/part-of: WORKLOAD_NAME
+    apps.tanzu.vmware.com/workload-type: web
+    carto.run/cluster-template-name: deliverable-template
+    carto.run/resource-name: deliverable
+    carto.run/supply-chain-name: source-test-scan-to-url
+    carto.run/template-kind: ClusterTemplate
+    carto.run/workload-name: WORKLOAD_NAME
+    carto.run/workload-namespace: WORKLOAD_NAMESPACE
+spec:
+  source:
+    git:
+      url: https://github.com/alinahid477/tapdemo-gitops.git
+      ref:
+        branch: release
+  params:
+    - name: gitops_ssh_secret
+      value: git-secret

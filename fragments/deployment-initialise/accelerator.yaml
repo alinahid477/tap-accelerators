@@ -1,0 +1,91 @@
+accelerator:
+  displayName: Deployment Initialise
+
+  options:
+    - name: deploymentType
+      inputType: select
+      label: Choose the type of deployment
+      choices:
+      - value: "workload"
+        text: Workload
+      - value: "deliverable"
+        text: Deliverable
+      defaultValue: "workload"
+      
+
+    - name: gitRepository
+      inputType: text
+      label: Git Repository for the target project
+      description: The Git repository of the project hosting source code
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: workload
+
+    - name: gitBranch
+      inputType: text
+      label: Git Branch for the target project
+      defaultValue: main
+      description: The Git branch of the project. Pushing or merging to this branch will trigger supply chain.
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: workload
+
+    - name: includeHasTests
+      inputType: checkbox
+      label: "Include 'has-tests' label for Workloads"
+      dataType: boolean
+      defaultValue: false
+      dependsOn:
+        name: deploymentType
+        value: workload
+
+    - name: testProcess
+      inputType: select
+      label: Choose the langugage to apply a test
+      choices:
+      - value: "java"
+        text: Maven Test
+      - value: "node"
+        text: NPM Test
+      defaultValue: "java"
+      dependsOn: 
+        name: includeHasTests
+
+engine:
+  merge:
+    - include: ["**/*"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "https://git.example.com/my-repo"
+              with: "#gitRepository"
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAME
+              with: "#artifactId"
+        - type: ReplaceText
+          substitutions:
+            - text: WORKLOAD_NAMESPACE
+              with: "#namespaceName"
+        - type: ReplaceText
+          substitutions:
+            - text: GIT_BRANCH
+              with: "#gitBranch"
+        - type: ReplaceText
+          condition: "#includeHasTests"
+          substitutions:
+            - text: TEST_PROCESS
+              with: "#testProcess"
+        - type: ReplaceText
+          condition: "#includeHasTests"
+          substitutions:
+            - text: "  labels:"
+              with: "'  labels:\n    apps.tanzu.vmware.com/has-tests: \"true\"'"
+    - condition: "#deploymentType == 'workload'"
+      exclude: ["deliverable.yaml"]
+    - condition: "!#includeHasTests && #deploymentType == 'workload'"
+      exclude: ["workload-uat.yaml"]
+    - condition: "#deploymentType == 'delivery'"
+      exclude: ["workload-*.yaml", "catalog-into.yaml"]

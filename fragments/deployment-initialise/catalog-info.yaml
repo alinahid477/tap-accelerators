@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: WORKLOAD_NAME
+  annotations:
+    "backstage.io/kubernetes-label-selector": "app.kubernetes.io/part-of=WORKLOAD_NAME"
+spec:
+  type: service
+  lifecycle: experimental
+  owner: default-team

@@ -1,0 +1,22 @@
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Fragment
+metadata:
+  name: deployment-intialise
+spec:
+  git:
+    ref:
+      branch: main
+    url: https://github.com/alinahid477/tap-accelerators.git
+    subPath: fragments/deployment-initialise
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
+  name: deployment-generator
+spec:
+  git:
+    ref:
+      branch: main
+    url: https://github.com/alinahid477/tap-accelerators.git
+    subPath: deployment-generator
