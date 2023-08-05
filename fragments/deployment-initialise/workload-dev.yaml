@@ -15,8 +15,6 @@ spec:
         branch: GIT_BRANCH
       url: https://git.example.com/my-repo
   env:
-    - name: spring_profiles_active
-      value: pgsql
     - name: GREETING_TEXT
       value: welcome-from-env
   serviceClaims:

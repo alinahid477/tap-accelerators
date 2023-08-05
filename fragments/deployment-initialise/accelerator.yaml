@@ -25,21 +25,47 @@ accelerator:
     - name: gitBranch
       inputType: text
       label: Git Branch for the target project
-      defaultValue: main
+      defaultValue: development
       description: The Git branch of the project. Pushing or merging to this branch will trigger supply chain.
       required: true
       dependsOn:
         name: deploymentType
         value: workload
 
-    - name: addJavaVersion
-      inputType: checkbox
-      label: "Add Java 17 Build Environment (BP_JVM_VERSION)"
-      dataType: boolean
-      defaultValue: true
+    - name: workloadType
+      inputType: select
+      label: Choose the langugage to apply a test
+      choices:
+      - value: "java"
+        text: Java
+      - value: "node"
+        text: NodeJS or ReactJS or NextJS
+      defaultValue: "java"
       dependsOn:
         name: deploymentType
         value: workload
+
+    - name: javaVersion
+      inputType: select
+      label: Java Version
+      choices:
+      - value: "17"
+        text: 17
+      - value: "11"
+        text: 11
+      defaultValue: "17"
+      dependsOn:
+        name: workloadType
+        value: java
+
+    - name: apiEntpoint
+      inputType: text
+      label: API endpoint
+      description: API Endpoint which this application will connect to.
+      required: true
+      dependsOn:
+        name: workloadType
+        value: node
 
     - name: includeHasTests
       inputType: checkbox
@@ -49,18 +75,6 @@ accelerator:
       dependsOn:
         name: deploymentType
         value: workload
-
-    - name: testProcess
-      inputType: select
-      label: Choose the langugage to apply a test
-      choices:
-      - value: "java"
-        text: Maven Test
-      - value: "node"
-        text: NPM Test
-      defaultValue: "java"
-      dependsOn: 
-        name: includeHasTests
 
 engine:
   merge:
@@ -91,10 +105,24 @@ engine:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
         - type: ReplaceText
-          condition: "#addJavaVersion"
+          condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"#javaVersion\"'"
+            - text: "env:"
+              with: "'env:\n    - name: spring_profiles_active\n      value: \"pgsql\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node'"
+          substitutions:
+            - text: "spec:"
+              with: "'spec:\n  build:\n    env:\n    - name: NODE_ENV\n      value: \"development\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NODE_ENV\n      value: \"development\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node' && #apiEndpoint != ''"
+          substitutions:
+            - text: "env:"
+              with: "'env:\n    - name: API_ENDPOINT\n      value: \"#apiEndpoint\"'"
 
     - condition: "#deploymentType == 'workload' && #includeHasTests"
       include: ["workload-uat.yaml"]
@@ -118,16 +146,30 @@ engine:
         - type: ReplaceText
           substitutions:
             - text: "TEST_PROCESS"
-              with: "#testProcess"
+              with: "#workloadType"
         - type: ReplaceText
           substitutions:
             - text: "  labels:"
               with: "'  labels:\n    apps.tanzu.vmware.com/has-tests: \"true\"'"
         - type: ReplaceText
-          condition: "#addJavaVersion"
+          condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"#javaVersion\"'"
+            - text: "env:"
+              with: "'env:\n    - name: spring_profiles_active\n      value: \"pgsql\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node'"
+          substitutions:
+            - text: "spec:"
+              with: "'spec:\n  build:\n    env:\n    - name: NODE_ENV\n      value: \"production\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NODE_ENV\n      value: \"development\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node' && #apiEndpoint != ''"
+          substitutions:
+            - text: "env:"
+              with: "'env:\n    - name: API_ENDPOINT\n      value: \"#apiEndpoint\"'"
 
     - condition: "#deploymentType == 'deliverable'"
       include: ["deliverable.yaml"]
