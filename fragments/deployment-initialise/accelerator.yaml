@@ -10,6 +10,10 @@ accelerator:
         text: Workload
       - value: "deliverable"
         text: Deliverable
+      - value: "secretresourceclaim"
+        text: Service Binding Secret Resource Claim
+      - value: "secretprojectionsetup"
+        text: Service Binding Secret Projection Setup (eg database)
       defaultValue: "workload"
       
 
@@ -40,6 +44,8 @@ accelerator:
         text: Java
       - value: "node"
         text: NodeJS or ReactJS or NextJS
+      - value: "dotnet"
+        text: .Net (coming soon)
       defaultValue: "java"
       dependsOn:
         name: deploymentType
@@ -76,6 +82,95 @@ accelerator:
         name: deploymentType
         value: workload
 
+
+    - name: dbType
+      inputType: select
+      label: Database Type
+      choices:
+      - value: "postgres"
+        text: postgres
+      - value: "mysql"
+        text: MySql
+      - value: "mssql"
+        text: MS Sql
+      defaultValue: "17"
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbProvider
+      inputType: text
+      label: Database Provider Name
+      description: Provider name of the Database. eg. AWS, Azure, Custom, MyOrg etc
+      required: true
+      defaultValue: "azure"
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbHost
+      inputType: text
+      label: Database Host Name
+      description: For example, example.internal.pgsql.tanzu, mydb.postgres.database.azure.com etc
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbPort
+      inputType: text
+      label: Database Port
+      description: For example, 5432, 8080 etc
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbName
+      inputType: text
+      label: Database Name
+      description: Name of the database
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbUsername
+      inputType: text
+      label: Database Username
+      description: Username to access the database
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: dbPassword
+      inputType: text
+      label: Database Password
+      description: Password for the above username to access the database (used for generating file, not stored)
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretprojectionsetup
+
+    - name: secretName
+      inputType: text
+      label: Name of the secret
+      description: The name of the secret (to the db)
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretresourceclaim
+
+    - name: secretNamespace
+      inputType: text
+      label: Namespace of the secret
+      description: The name of the namespace where the secret is created in
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: secretresourceclaim
+
 engine:
   merge:
     - include: ["DEPLOYING.md"]
@@ -108,9 +203,13 @@ engine:
           condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"#javaVersion\"'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: javaversion'"
             - text: "env:"
-              with: "'env:\n    - name: spring_profiles_active\n      value: \"pgsql\"'"
+              with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
+        - type: ReplaceText
+          substitutions:
+            - text: "javaversion"
+              with: "#javaVersion"
         - type: ReplaceText
           condition: "#workloadType == 'node'"
           substitutions:
@@ -122,7 +221,12 @@ engine:
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
             - text: "env:"
-              with: "'env:\n    - name: API_ENDPOINT\n      value: \"#apiEndpoint\"'"
+              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node' && #apiEndpoint != ''"
+          substitutions:
+            - text: "apiservingapp"
+              with: "#apiEndpoint"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteProperty
@@ -165,9 +269,13 @@ engine:
           condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"#javaVersion\"'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: javaversion'"
             - text: "env:"
-              with: "'env:\n    - name: spring_profiles_active\n      value: \"pgsql\"'"
+              with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
+        - type: ReplaceText
+          substitutions:
+            - text: "javaversion"
+              with: "#javaVersion"
         - type: ReplaceText
           condition: "#workloadType == 'node'"
           substitutions:
@@ -179,7 +287,12 @@ engine:
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
             - text: "env:"
-              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"#apiEndpoint\"'"
+              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
+        - type: ReplaceText
+          condition: "#workloadType == 'node' && #apiEndpoint != ''"
+          substitutions:
+            - text: "apiservingapp"
+              with: "#apiEndpoint"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteProperty
@@ -190,6 +303,7 @@ engine:
           recipe: org.openrewrite.yaml.DeleteProperty
           options:
             propertyKey: "'spec.params'"
+
     - condition: "#deploymentType == 'deliverable'"
       include: ["deliverable.yaml"]
       chain:
@@ -202,3 +316,50 @@ engine:
             - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
         
+    - condition: "#deploymentType == 'secretprojectionsetup'"
+      include: ["secret-for-db.yaml", "secret-projection-setup.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "WORKLOAD_NAME"
+              with: "#artifactId"
+            - text: "DEPLOYMENT_NAMESPACE"
+              with: "#namespaceName"
+            - text: "DB_TYPE"
+              with: "#dbType"
+            - text: "DB_PROVIDER"
+              with: "#dbProvider"
+            - text: "DB_HOST"
+              with: "#dbHost"
+            - text: "DB_PORT"
+              with: "#dbPort"
+            - text: "DB_NAME"
+              with: "#dbName"
+            - text: "DB_USERNAME"
+              with: "#dbUsername"
+            - text: "DB_PASSWORD"
+              with: "#dbPassword"
+
+    - condition: "#deploymentType == 'secretresourceclaim'"
+      include: ["secret-resource-claim.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "WORKLOAD_NAME"
+              with: "#artifactId"
+            - text: "DEPLOYMENT_NAMESPACE"
+              with: "#namespaceName"
+            - text: "SECRET_NAME"
+              with: "#secretName"
+            - text: "NAMESPACE_OF_THE_SECRET"
+              with: "#secretNamespace"
+            - text: "DB_HOST"
+              with: "#dbHost"
+            - text: "DB_PORT"
+              with: "#dbPort"
+            - text: "DB_NAME"
+              with: "#dbName"
+            - text: "DB_USERNAME"
+              with: "#dbUsername"
+            - text: "DB_PASSWORD"
+              with: "#dbPassword"

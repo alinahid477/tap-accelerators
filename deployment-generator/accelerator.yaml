@@ -9,12 +9,12 @@ accelerator:
 
   options:
     - name: workloadName
-      label: Name of the workload
-      description: The name of the workload
+      label: Name of the item
+      description: The name of the item
       defaultValue: "simple-webapp"
     - name: namespaceName
       label: Namespace
-      description: The name of the namespace where workload will be deployed
+      description: The name of the namespace where the item will be deployed
       defaultValue: "default"
   
   imports:
