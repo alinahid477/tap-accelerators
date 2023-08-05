@@ -169,7 +169,7 @@ engine:
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
             - text: "env:"
-              with: "'env:\n    - name: API_ENDPOINT\n      value: \"#apiEndpoint\"'"
+              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"#apiEndpoint\"'"
 
     - condition: "#deploymentType == 'deliverable'"
       include: ["deliverable.yaml"]
