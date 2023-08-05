@@ -58,7 +58,7 @@ accelerator:
         name: workloadType
         value: java
 
-    - name: apiEntpoint
+    - name: apiEndpoint
       inputType: text
       label: API endpoint
       description: API Endpoint which this application will connect to.
@@ -123,6 +123,16 @@ engine:
           substitutions:
             - text: "env:"
               with: "'env:\n    - name: API_ENDPOINT\n      value: \"#apiEndpoint\"'"
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.serviceClaims'"
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.params'"
 
     - condition: "#deploymentType == 'workload' && #includeHasTests"
       include: ["workload-uat.yaml"]
@@ -170,7 +180,16 @@ engine:
           substitutions:
             - text: "env:"
               with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"#apiEndpoint\"'"
-
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.serviceClaims'"
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.params'"
     - condition: "#deploymentType == 'deliverable'"
       include: ["deliverable.yaml"]
       chain:
