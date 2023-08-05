@@ -305,9 +305,9 @@ engine:
             propertyKey: "'spec.serviceClaims'"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
-          recipe: org.openrewrite.yaml.DeleteProperty
+          recipe: org.openrewrite.yaml.DeleteKey
           options:
-            propertyKey: "'spec.params'"
+            propertyKey: "'$.spec.params[?(@.name == \"api_descriptor\"")]'"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteProperty
