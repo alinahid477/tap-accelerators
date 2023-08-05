@@ -307,7 +307,7 @@ engine:
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteKey
           options:
-            keyPath: "'$.spec.params[?(@.name == "api_descriptor")]'"
+            keyPath: "'$.spec.params[0]'"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteProperty
