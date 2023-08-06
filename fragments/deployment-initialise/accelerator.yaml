@@ -82,6 +82,15 @@ accelerator:
         name: deploymentType
         value: workload
 
+    - name: workloadNSforDeliverable
+      inputType: text
+      label: Name of Workload Namespace
+      description: Workload namespace name that this delivery is associated with. This is needed to displaying in the UI.
+      required: true
+      dependsOn:
+        name: deploymentType
+        value: deliverable
+
 
     - name: dbType
       inputType: select
@@ -327,10 +336,11 @@ engine:
               with: "#artifactId"
             - text: "WORKLOAD_PARTOF"
               with: "#artifactPartOf"
-        - type: ReplaceText
-          substitutions:
+            - text: "NAMESPACE_OF_WORKLOAD"
+              with: "#workloadNSforDeliverable"
             - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
+            
         
     - condition: "#deploymentType == 'secretprojectionsetup'"
       include: ["secret-for-db.yaml", "secret-projection-setup.yaml"]

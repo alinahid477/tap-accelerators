@@ -12,7 +12,7 @@ metadata:
     carto.run/supply-chain-name: source-test-scan-to-url
     carto.run/template-kind: ClusterTemplate
     carto.run/workload-name: WORKLOAD_NAME
-    carto.run/workload-namespace: DEPLOYMENT_NAMESPACE
+    carto.run/workload-namespace: NAMESPACE_OF_WORKLOAD
 spec:
   source:
     git:
@@ -22,3 +22,5 @@ spec:
   params:
     - name: gitops_ssh_secret
       value: git-secret
+    - name: gitops_sub_path
+      value: config/NAMESPACE_OF_WORKLOAD/WORKLOAD_NAME
