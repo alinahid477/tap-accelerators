@@ -187,6 +187,8 @@ engine:
           substitutions:
             - text: "WORKLOAD_NAME"
               with: "#artifactId"
+            - text: "WORKLOAD_PARTOF"
+              with: "#artifactPartOf"
         - type: ReplaceText
           substitutions:
             - text: "DEPLOYMENT_NAMESPACE"
@@ -250,6 +252,8 @@ engine:
           substitutions:
             - text: "WORKLOAD_NAME"
               with: "#artifactId"
+            - text: "WORKLOAD_PARTOF"
+              with: "#artifactPartOf"
         - type: ReplaceText
           substitutions:
             - text: "DEPLOYMENT_NAMESPACE"

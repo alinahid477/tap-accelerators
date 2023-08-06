@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: WORKLOAD_NAME
   annotations:
-    "backstage.io/kubernetes-label-selector": "app.kubernetes.io/part-of=WORKLOAD_NAME"
+    "backstage.io/kubernetes-label-selector": "app.kubernetes.io/part-of=WORKLOAD_PARTOF"
 spec:
   type: service
   lifecycle: experimental

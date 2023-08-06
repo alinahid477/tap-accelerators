@@ -12,6 +12,10 @@ accelerator:
       label: Name of the item
       description: The name of the item
       defaultValue: "simple-webapp"
+    - name: workloadPartOf
+      label: Name of registered entity
+      description: The entity you registered in the TAP UI for see your app
+      defaultValue: "simple-webapp"
     - name: namespaceName
       label: Namespace
       description: The name of the namespace where the item will be deployed
@@ -44,6 +48,8 @@ engine:
         let:
         - name: artifactId
           expression: "#workloadName"
+        - name: artifactPartOf
+          expression: "#artifactPartOf"
         - name: namespaceName
           expression: "#namespaceName"
         reference: deployment-initialise
