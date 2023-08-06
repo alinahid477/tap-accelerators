@@ -205,7 +205,7 @@ engine:
           condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: javaversion'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"javaversion\"'"
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
         - type: ReplaceText
@@ -278,7 +278,7 @@ engine:
           condition: "#workloadType == 'java'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: javaversion'"
+              with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"javaversion\"'"
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
         - type: ReplaceText
