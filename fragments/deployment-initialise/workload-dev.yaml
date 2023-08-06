@@ -22,7 +22,7 @@ spec:
       ref:
         apiVersion: services.apps.tanzu.vmware.com/v1alpha1
         kind: ResourceClaim
-        name: db-access-secret-resource-claim
+        name: DB_ACCESS_RESOURCE_CLAIM_NAME
   params:
     - name: api_descriptor
       value:

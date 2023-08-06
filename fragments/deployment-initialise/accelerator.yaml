@@ -64,6 +64,16 @@ accelerator:
         name: workloadType
         value: java
 
+    - name: dbAccessResourceClaim
+      inputType: text
+      label: Name of the Resource Claim for accessing DB.
+      description: Use resource claim option to generate the resourceclaim object after this.
+      defaultValue: db-access-secret-resource-claim
+      required: true
+      dependsOn:
+        name: workloadType
+        value: java
+
     - name: apiEndpoint
       inputType: text
       label: API endpoint
@@ -213,11 +223,17 @@ engine:
         - type: ReplaceText
           condition: "#workloadType == 'java'"
           substitutions:
+            - text: "DB_ACCESS_RESOURCE_CLAIM_NAME"
+              with: "#dbAccessResourceClaim"
+        - type: ReplaceText
+          condition: "#workloadType == 'java'"
+          substitutions:
             - text: "spec:"
               with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"javaversion\"'"
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
         - type: ReplaceText
+          condition: "#workloadType == 'java'"
           substitutions:
             - text: "javaversion"
               with: "#javaVersion"
@@ -280,6 +296,11 @@ engine:
             - text: "TEST_PROCESS"
               with: "#workloadType"
         - type: ReplaceText
+          condition: "#workloadType == 'java'"
+          substitutions:
+            - text: "DB_ACCESS_RESOURCE_CLAIM_NAME"
+              with: "#dbAccessResourceClaim"
+        - type: ReplaceText
           substitutions:
             - text: "  labels:"
               with: "'  labels:\n    apps.tanzu.vmware.com/has-tests: \"true\"'"
@@ -291,6 +312,7 @@ engine:
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
         - type: ReplaceText
+          condition: "#workloadType == 'java'"
           substitutions:
             - text: "javaversion"
               with: "#javaVersion"
