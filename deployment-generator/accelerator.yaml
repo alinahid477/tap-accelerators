@@ -49,7 +49,7 @@ engine:
         - name: artifactId
           expression: "#workloadName"
         - name: artifactPartOf
-          expression: "#artifactPartOf"
+          expression: "#workloadPartOf"
         - name: namespaceName
           expression: "#namespaceName"
         reference: deployment-initialise
