@@ -241,17 +241,17 @@ engine:
           condition: "#workloadType == 'node'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: NODE_ENV\n      value: \"development\"'"            
+              with: "'spec:\n  build:\n    env:\n    - name: BP_NODE_RUN_SCRIPTS\n      value: \"build\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node'"
           substitutions:
-            - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_NODE_RUN_SCRIPTS\n      value: \"build\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NODE_ENV\n      value: \"development\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
-            - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
@@ -267,6 +267,11 @@ engine:
           recipe: org.openrewrite.yaml.DeleteProperty
           options:
             propertyKey: "'spec.params'"
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.env'"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteProperty
@@ -323,17 +328,17 @@ engine:
           condition: "#workloadType == 'node'"
           substitutions:
             - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: NODE_ENV\n      value: \"development\"'"            
+              with: "'spec:\n  build:\n    env:\n    - name: BP_NODE_RUN_SCRIPTS\n      value: \"build\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node'"
           substitutions:
-            - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: BP_NODE_RUN_SCRIPTS\n      value: \"build\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NODE_ENV\n      value: \"development\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
-            - text: "spec:"
-              with: "'spec:\n  build:\n    env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
+            - text: "env:"
+              with: "'env:\n    - name: NEXT_PUBLIC_API_ENDPOINT\n      value: \"apiservingapp\"'"
         - type: ReplaceText
           condition: "#workloadType == 'node' && #apiEndpoint != ''"
           substitutions:
@@ -344,6 +349,11 @@ engine:
           recipe: org.openrewrite.yaml.DeleteProperty
           options:
             propertyKey: "'spec.serviceClaims'"
+        - type: OpenRewriteRecipe
+          condition: "#workloadType == 'node'"
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'spec.env'"
         - type: OpenRewriteRecipe
           condition: "#workloadType == 'node'"
           recipe: org.openrewrite.yaml.DeleteKey
