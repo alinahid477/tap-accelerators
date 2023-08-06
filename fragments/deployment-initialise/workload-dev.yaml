@@ -29,6 +29,6 @@ spec:
         type: openapi
         location: 
           path: "/v3/api-docs"
-        system: WORKLOAD_NAME
+        system: WORKLOAD_PARTOF
         owner: default-team
         description: "Simple Webapp API"
