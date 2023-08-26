@@ -83,11 +83,15 @@ accelerator:
         name: workloadType
         value: node
 
-    - name: includeHasTests
-      inputType: checkbox
-      label: "This is a uat workload"
-      dataType: boolean
-      defaultValue: false
+    - name: workloadPlacementEnvironment
+      inputType: select
+      label: Workload Environment
+      choices:
+      - value: "Development"
+        text: "dev"
+      - value: "Production"
+        text: "prod"
+      defaultValue: "dev"
       dependsOn:
         name: deploymentType
         value: workload
@@ -199,7 +203,7 @@ engine:
             - text: "WORKLOAD_NAME"
               with: "#artifactId"
 
-    - condition: "#deploymentType == 'workload' && !#includeHasTests"
+    - condition: "#deploymentType == 'workload' && #workloadPlacementEnvironment == 'dev'"
       include: ["workload-dev.yaml", "catalog-info.yaml"]
       chain:
         - type: ReplaceText
@@ -278,8 +282,8 @@ engine:
           options:
             propertyKey: "'metadata.labels.apis.apps.tanzu.vmware.com/register-api'"
             
-    - condition: "#deploymentType == 'workload' && #includeHasTests"
-      include: ["workload-uat.yaml"]
+    - condition: "#deploymentType == 'workload' && #workloadPlacementEnvironment == 'prod'"
+      include: ["workload-prod.yaml"]
       chain:
         - type: ReplaceText
           substitutions:
