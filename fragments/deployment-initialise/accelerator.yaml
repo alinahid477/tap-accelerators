@@ -32,9 +32,6 @@ accelerator:
       defaultValue: development
       description: The Git branch of the project. Pushing or merging to this branch will trigger supply chain.
       required: true
-      dependsOn:
-        name: deploymentType
-        value: workload
 
     - name: workloadType
       inputType: select
@@ -382,6 +379,8 @@ engine:
               with: "#workloadNSforDeliverable"
             - text: "DEPLOYMENT_NAMESPACE"
               with: "#namespaceName"
+            - text: "GIT_BRANCH"
+              with: "#gitBranch"
             
         
     - condition: "#deploymentType == 'secretprojectionsetup'"

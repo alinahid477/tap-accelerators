@@ -18,7 +18,7 @@ spec:
     git:
       url: https://github.com/alinahid477/tapdemo-gitops.git
       ref:
-        branch: main
+        branch: GIT_BRANCH
   params:
     - name: gitops_ssh_secret
       value: git-secret
