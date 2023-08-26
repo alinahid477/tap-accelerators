@@ -87,10 +87,10 @@ accelerator:
       inputType: select
       label: Workload Environment
       choices:
-      - value: "Development"
-        text: "dev"
-      - value: "Production"
-        text: "prod"
+      - value: "dev"
+        text: "Development"
+      - value: "prod"
+        text: "Production"
       defaultValue: "dev"
       dependsOn:
         name: deploymentType
