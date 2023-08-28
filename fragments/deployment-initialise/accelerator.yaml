@@ -48,6 +48,15 @@ accelerator:
         name: deploymentType
         value: workload
 
+    - name: knativeMinScale
+      inputType: text
+      label: Minimum Autoscale
+      description: For example, 0, 1, 2 etc
+      defaultValue: "2"
+      dependsOn:
+        name: deploymentType
+        value: workload
+
     - name: javaVersion
       inputType: select
       label: Java Version
@@ -224,6 +233,10 @@ engine:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
         - type: ReplaceText
+          substitutions:
+            - text: "autoscaling.knative.dev/minScale: \"1\""
+              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
+        - type: ReplaceText
           condition: "#workloadType == 'java'"
           substitutions:
             - text: "DB_ACCESS_RESOURCE_CLAIM_NAME"
@@ -302,6 +315,10 @@ engine:
           substitutions:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
+        - type: ReplaceText
+          substitutions:
+            - text: "autoscaling.knative.dev/minScale: \"1\""
+              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
         - type: ReplaceText
           substitutions:
             - text: "TEST_PROCESS"
@@ -384,6 +401,8 @@ engine:
               with: "#gitRepository"
             - text: "GIT_BRANCH"
               with: "#gitBranch"
+            - text: "autoscaling.knative.dev/minScale: \"1\""
+              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
         - type: ReplaceText
           condition: "#workloadType == 'java'"
           substitutions:

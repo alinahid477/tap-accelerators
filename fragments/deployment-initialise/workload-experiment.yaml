@@ -9,6 +9,8 @@ metadata:
     apis.apps.tanzu.vmware.com/register-api: "true"
     app.kubernetes.io/part-of: WORKLOAD_PARTOF
     apps.tanzu.vmware.com/name: 'source-to-dev-cluster-url'
+  annotations:
+    autoscaling.knative.dev/minScale: "1"
 spec:
   source:
     git:
