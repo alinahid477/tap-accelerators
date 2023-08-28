@@ -27,6 +27,8 @@ spec:
         kind: ResourceClaim
         name: DB_ACCESS_RESOURCE_CLAIM_NAME
   params:
+    - name: annotations
+        autoscaling.knative.dev/minScale: "1"
     - name: api_descriptor
       value:
         type: openapi

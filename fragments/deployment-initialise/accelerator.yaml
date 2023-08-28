@@ -235,7 +235,7 @@ engine:
         - type: ReplaceText
           substitutions:
             - text: "autoscaling.knative.dev/minScale: \"1\""
-              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
+              with: "'autoscaling.knative.dev/minScale: \"' + #knativeMinScale + '\"'"
         - type: ReplaceText
           condition: "#workloadType == 'java'"
           substitutions:
@@ -318,7 +318,7 @@ engine:
         - type: ReplaceText
           substitutions:
             - text: "autoscaling.knative.dev/minScale: \"1\""
-              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
+              with: "'autoscaling.knative.dev/minScale: \"' + #knativeMinScale + '\"'"
         - type: ReplaceText
           substitutions:
             - text: "TEST_PROCESS"
@@ -402,7 +402,7 @@ engine:
             - text: "GIT_BRANCH"
               with: "#gitBranch"
             - text: "autoscaling.knative.dev/minScale: \"1\""
-              with: "'autoscaling.knative.dev/minScale: ' + #knativeMinScale"
+              with: "'autoscaling.knative.dev/minScale: \"' + #knativeMinScale + '\"'"
         - type: ReplaceText
           condition: "#workloadType == 'java'"
           substitutions:
