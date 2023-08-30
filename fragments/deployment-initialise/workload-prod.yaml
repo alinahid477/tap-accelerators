@@ -8,7 +8,6 @@ metadata:
     apps.tanzu.vmware.com/workload-type: web
     apis.apps.tanzu.vmware.com/register-api: "true"
     app.kubernetes.io/part-of: WORKLOAD_PARTOF
-    apis.apps.tanzu.vmware.com/register-api: "true"
     apps.tanzu.vmware.com/name: 'source-test-scan-pullreq-to-prod-url'
 spec:
   source:
