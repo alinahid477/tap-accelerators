@@ -81,7 +81,16 @@ engine:
               with: "#storageGB"            
             - text: "RPLC_SIZE"
               with: "#size"
-            - text: "RPLC_IS_PUBLIC"
-              with: "#ispublic"
             - text: "RPLC_DEFAULT_DB"
               with: "#defaultDB"
+        - type: ReplaceText
+          codition: "#ispublic"
+          substitutions:
+            - text: "RPLC_IS_PUBLIC"
+              with: "true"
+        - type: ReplaceText
+          codition: "#ispublic == false"
+          substitutions:
+            - text: "RPLC_IS_PUBLIC"
+              with: "false"
+
