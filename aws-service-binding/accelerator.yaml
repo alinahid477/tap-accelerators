@@ -87,10 +87,10 @@ engine:
           condition: "#ispublic"
           substitutions:
             - text: "RPLC_IS_PUBLIC"
-              with: "true"
+              with: "'true'"
         - type: ReplaceText
           condition: "#ispublic == false"
           substitutions:
             - text: "RPLC_IS_PUBLIC"
-              with: "false"
+              with: "'false'"
 
