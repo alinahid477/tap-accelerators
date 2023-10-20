@@ -56,6 +56,7 @@ accelerator:
 
     - name: ispublic
       inputType: checkbox
+      dataType: boolean
       label: Public
       description: By default the instance is private. Tick this box to make it publicly available. 
       defaultValue: false
