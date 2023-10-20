@@ -24,6 +24,20 @@ accelerator:
       defaultValue: "postgres"
       required: true
 
+    - name: classclaimName
+      inputType: text
+      label: Class Claim Name
+      description: AWS instance will be created prefixing using this value as well. 
+      required: true
+    
+    - name: classclaimNamespace
+      inputType: text
+      label: Class Claim Namespace
+      description: The namespace where this class claim CRD will be created. Application consuming this claim will need to reside in the same namespace. 
+      defaultValue: "default"
+      required: true
+
+
     - name: region
       inputType: text
       label: AWS region
@@ -75,6 +89,10 @@ engine:
           substitutions:
             - text: "RPLC_OBJECT_TYPE"
               with: "#objectType"
+            - text: "RPLC_NAME"
+              with: "#classclaimName"
+            - text: "RPLC_DEPLOYMENT_NAMESPACE"
+              with: "#classclaimNamespace"
             - text: "RPLC_REGION"
               with: "#region"
             - text: "RPLC_STORAGE_GB"

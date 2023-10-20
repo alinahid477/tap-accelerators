@@ -5,8 +5,8 @@ metadata:
   #   classclaims.services.apps.tanzu.vmware.com/xrd-name: xpostgresqlinstances.database.rds.example.org
   # finalizers:
   # - classclaims.services.apps.tanzu.vmware.com/provision-finalizer
-  name: rds-psql-2
-  namespace: rds
+  name: RPLC_NAME
+  namespace: RPLC_DEPLOYMENT_NAMESPACE
 spec:
   classRef:
     name: aws-rds-psql
