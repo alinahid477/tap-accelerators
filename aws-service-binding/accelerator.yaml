@@ -50,7 +50,7 @@ accelerator:
       - value: "db.t2.medium"
         text: db.t2.medium
       - value: "db.t2.large"
-        text: ddb.t2.large
+        text: db.t2.large
       defaultValue: "db.t2.micro"
       required: true
 
