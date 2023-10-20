@@ -84,12 +84,12 @@ engine:
             - text: "RPLC_DEFAULT_DB"
               with: "#defaultDB"
         - type: ReplaceText
-          codition: "#ispublic"
+          condition: "#ispublic"
           substitutions:
             - text: "RPLC_IS_PUBLIC"
               with: "true"
         - type: ReplaceText
-          codition: "#ispublic == false"
+          condition: "#ispublic == false"
           substitutions:
             - text: "RPLC_IS_PUBLIC"
               with: "false"
