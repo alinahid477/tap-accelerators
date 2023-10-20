@@ -1,0 +1,19 @@
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClassClaim
+metadata:
+  # annotations:
+  #   classclaims.services.apps.tanzu.vmware.com/xrd-name: xpostgresqlinstances.database.rds.example.org
+  # finalizers:
+  # - classclaims.services.apps.tanzu.vmware.com/provision-finalizer
+  name: rds-psql-2
+  namespace: rds
+spec:
+  classRef:
+    name: aws-rds-psql
+  parameters:
+    storageGB: RPLC_STORAGE_GB
+    objectType: RPLC_OBJECT_TYPE
+    region: RPLC_REGION
+    size: RPLC_SIZE
+    public: RPLC_IS_PUBLIC
+    schemaName: RPLC_DEFAULT_DB
