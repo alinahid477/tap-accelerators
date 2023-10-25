@@ -115,6 +115,8 @@ engine:
               with: "#objectNamespaceName"
             - text: "RPLC_WORKLOAD_TYPE"
               with: "#workloadType"
+            - text: "RPLC_CATALOG_NAME"
+              with: "#catalogName"  
             - text: "RPLC_WORKLOAD_GIT_URL"
               with: "#workloadGitUrl"
             - text: "RPLC_WORKLOAD_GIT_BRANCH"
@@ -144,4 +146,3 @@ engine:
               with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
-
