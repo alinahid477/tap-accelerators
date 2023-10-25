@@ -1,0 +1,33 @@
+---
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  name: RPLC_WORKLOAD_NAME
+  namespace: RPLC_NAMESPACE_NAME
+  labels:
+    apps.tanzu.vmware.com/no-deploy: "true"
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: RPLC_WORKLOAD_TYPE
+    app.kubernetes.io/part-of: RPLC_CATALOG_NAME
+    app.ingress/domain-category: RPLC_WORKLOAD_DOMAIN_CATEGORY #api #internal
+    # app.ingress/domain: apps.44.238.193.0.nip.io
+    app.ingress/port: "RPLC_WORKLOAD_SERVICE_PORT"
+spec:
+  source:
+    git:
+      ref:
+        branch: RPLC_WORKLOAD_GIT_BRANCH
+      url: RPLC_WORKLOAD_GIT_URL
+  env:
+    - name: GREETING_TEXT
+      value: "hello"
+  params:
+    - name: gitops_ssh_secret
+      value: src-git-secret 
+    - name: ports
+      value:
+      - containerPort: RPLC_WORKLOAD_CONTAINER_PORT
+        name: http
+        port: RPLC_WORKLOAD_SERVICE_PORT
+    - name: testing_pipeline_matching_labels # multi-pipeline functionality
+      value: {"apps.tanzu.vmware.com/pipeline":"test", "apps.tanzu.vmware.com/language":"RPLC_WORKLOAD_LANGUAGE"} # multi-pipeline functionality

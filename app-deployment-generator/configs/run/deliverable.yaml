@@ -1,0 +1,23 @@
+apiVersion: carto.run/v1alpha1
+kind: Deliverable
+metadata:
+  name: RPLC_WORKLOAD_NAME
+  namespace: RPLC_NAMESPACE_NAME
+  labels:
+    app.kubernetes.io/component: deliverable
+    app.tanzu.vmware.com/deliverable-type: web
+    apps.tanzu.vmware.com/workload-type: RPLC_WORKLOAD_TYPE
+    app.kubernetes.io/part-of: RPLC_CATALOG_NAME
+    carto.run/workload-name: RPLC_WORKLOAD_NAME
+    carto.run/workload-namespace: RPLC_NAMESPACE_NAME
+spec:
+  source:
+    git:
+      ref:
+        branch: deploy
+      url: https://gitlab.com/anahid-test/simple-webapp.git
+  params:
+    - name: gitops_ssh_secret
+      value: git-secret
+    - name: gitops_sub_path
+      value: config/RPLC_NAMESPACE_NAME/RPLC_WORKLOAD_NAME
