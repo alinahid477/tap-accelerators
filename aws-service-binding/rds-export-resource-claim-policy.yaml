@@ -1,0 +1,11 @@
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ResourceClaimPolicy
+metadata:
+  name: RPLC_NAME-export-policy
+  namespace: RPLC_DEPLOYMENT_NAMESPACE # --> same namespace as ClassClaim
+spec:
+  consumingNamespaces:
+  - '*'
+  subject:
+    group: RPLC_CLUSTER_RESOURCE_DEFITION_GROUP # --> coming from CompositeResourceDefinition .spec.group
+    kind: RPLC_CLUSTER_RESOURCE_DEFITION_KIND # --> coming from CompositeResourceDefinition .spec.names.kind

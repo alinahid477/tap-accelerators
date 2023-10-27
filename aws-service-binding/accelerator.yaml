@@ -51,6 +51,28 @@ accelerator:
       defaultValue: "default"
       required: true
 
+    - name: clusterResourceDefitionGroup
+      inputType: select
+      label: Choose cluster resource defition group
+      choices:
+      - value: "database.rds.cluster.local"
+        text: database.rds.cluster.local
+      - value: "database.test.cluster.local"
+        text: database.test.cluster.local
+      description: This information is used to create a ResourceClaimPolicy to export the ClassClaim to other namespace. This is so that, operators can keep the ClassClaims in their own namespaces and delevelopers can use them from any other namespaces they are using to deploy application. Without ResourceClaimPolicy the ClassClaim must be in the same namespace as the consuming app binding to it. This is the value of CompositeResourceDefinition.spec.group.
+      defaultValue: "database.rds.cluster.local"
+      required: true
+
+    - name: clusterResourceDefitionKind
+      inputType: select
+      label: Choose cluster resource defition kind
+      choices:
+      - value: "XRDSInstance"
+        text: XRDSInstance
+      description: This information is used to create a ResourceClaimPolicy to export the ClassClaim to other namespace. This is so that, operators can keep the ClassClaims in their own namespaces and delevelopers can use them from any other namespaces they are using to deploy application. Without ResourceClaimPolicy the ClassClaim must be in the same namespace as the consuming app binding to it. This is the value of CompositeResourceDefinition.spec.names.kind.
+      defaultValue: "XRDSInstance"
+      required: true
+
 
     - name: region
       inputType: text
@@ -118,6 +140,10 @@ engine:
               with: "#classclaimName"
             - text: "RPLC_DEPLOYMENT_NAMESPACE"
               with: "#classclaimNamespace"
+            - text: "RPLC_CLUSTER_RESOURCE_DEFITION_GROUP"
+              with: "#clusterResourceDefitionGroup"
+            - text: "RPLC_CLUSTER_RESOURCE_DEFITION_KIND"
+              with: "#clusterResourceDefitionKind"
             - text: "RPLC_REGION"
               with: "#region"
             - text: "RPLC_STORAGE_GB"
