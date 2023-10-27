@@ -95,15 +95,15 @@ accelerator:
       inputType: select
       label: Machine Size
       choices:
-      - value: "db.t2.micro"
-        text: db.t2.micro
-      - value: "db.t2.small"
-        text: db.t2.small
-      - value: "db.t2.medium"
-        text: db.t2.medium
-      - value: "db.t2.large"
-        text: db.t2.large
-      defaultValue: "db.t2.micro"
+      - value: "db.t3.micro"
+        text: db.t3.micro
+      - value: "db.t3.small"
+        text: db.t3.small
+      - value: "db.t3.medium"
+        text: db.t3.medium
+      - value: "db.t3.large"
+        text: db.t3.large
+      defaultValue: "db.t3.micro"
       required: true
       dependsOn:
         name: clusterInstanceClassName
