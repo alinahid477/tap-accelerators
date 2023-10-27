@@ -28,7 +28,7 @@ accelerator:
       inputType: select
       label: Choose AWS database type
       choices:
-      - value: "postgres"
+      - value: "postgresql"
         text: RDS PostgreSQL
       - value: "mysql"
         text: RDS MySQL
