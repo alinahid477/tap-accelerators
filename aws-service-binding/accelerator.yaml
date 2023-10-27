@@ -131,6 +131,7 @@ accelerator:
 engine:
   merge:
     - include: ["**/*"]
+      exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
           substitutions:
