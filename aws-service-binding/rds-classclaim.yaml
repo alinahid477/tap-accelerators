@@ -12,8 +12,8 @@ spec:
     name: RPLC_CLUSTER_INSTANCE_CLASS_NAME
   parameters:
     storageGB: RPLC_STORAGE_GB
-    dbType: RPLC_OBJECT_TYPE
+    dbType: RPLC_DB_TYPE
     region: RPLC_REGION
     size: RPLC_SIZE
-    publiclyAccessible: RPLC_IS_PUBLIC
+    publiclyAccessible: "RPLC_IS_PUBLIC"
     dbName: RPLC_DEFAULT_DB
