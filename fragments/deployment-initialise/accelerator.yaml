@@ -62,9 +62,9 @@ accelerator:
       label: Java Version
       choices:
       - value: "17"
-        text: 17
+        text: "17"
       - value: "11"
-        text: 11
+        text: "11"
       defaultValue: "17"
       dependsOn:
         name: workloadType
