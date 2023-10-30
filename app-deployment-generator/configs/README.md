@@ -3,7 +3,7 @@
 
 
 ```
-kubectl apply -f build/
+kubectl apply -f build/workload.yaml
 ```
 
 The above command will create:
@@ -19,5 +19,5 @@ tanzu apps workload tail RPLC_WORKLOAD_NAME --since 1h -n RPLC_NAMESPACE_NAME
 ### in run cluster
 
 ```
-kubectl apply -f run/
+kubectl apply -f run/deliverable.yaml
 ```

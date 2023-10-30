@@ -94,12 +94,6 @@ accelerator:
       description: This is part of the workload domain pattern. Domain pattern> [workload-name].[workload-domain-category].[workload-domain]
       required: true
 
-    - name: srcGitAccessToken
-      inputType: text
-      label: Gitlab Token for the source git project
-      description: SupplyChain (CI pipeline) uses this access token to pull from source git project. This input is used to generate a src-git-secret.yaml file.
-      required: true
-
     
 
 engine:
@@ -129,8 +123,6 @@ engine:
               with: "#workloadLanguage"
             - text: "RPLC_WORKLOAD_DOMAIN_CATEGORY"
               with: "#workloadDomainCategory"
-            - text: "RPLC_SRC_GIT_ACCESS_TOKEN"
-              with: "#srcGitAccessToken"
               
         - type: ReplaceText
           condition: "#workloadLanguage == 'nodejs'"
