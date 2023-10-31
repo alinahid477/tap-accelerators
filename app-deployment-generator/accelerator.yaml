@@ -90,6 +90,8 @@ accelerator:
         text: internal
       - value: "external"
         text: external
+      - value: "apps"
+        text: apps
       defaultValue: "internal"
       description: This is part of the workload domain pattern. Domain pattern> [workload-name].[workload-domain-category].[workload-domain]
       required: true
