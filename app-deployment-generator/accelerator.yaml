@@ -80,6 +80,22 @@ accelerator:
       defaultValue: "80"
       required: true
 
+    - name: isVanityUrl
+      description: Check this box if you would like provide vanity url instead for domain category
+      defaultValue: false
+      label: Use Vanity Url
+      inputType: checkbox
+      dataType: boolean
+      required: true 
+    
+    - name: vanityUrl
+      inputType: text
+      label: Vanity Url
+      description:  Provide vanity url for this application
+      required: true
+      dependsOn: 
+        name: isVanityUrl
+
     - name: workloadDomainCategory
       inputType: select
       label: Choose workload domain category
@@ -95,6 +111,11 @@ accelerator:
       defaultValue: "internal"
       description: This is part of the workload domain pattern. Domain pattern> [workload-name].[workload-domain-category].[workload-domain]
       required: true
+      dependsOn: 
+        name: isVanityUrl
+        value: false
+
+
 
     
 
