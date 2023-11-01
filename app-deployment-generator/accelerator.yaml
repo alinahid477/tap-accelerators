@@ -1,5 +1,5 @@
 accelerator:
-  displayName: Simple Application Deployment Generator v3
+  displayName: Simple Application Deployment Generator
   description: Generate objects (workload.yaml, deliverable.yaml, src-git-secret.yaml) needed to deploy and deliver an application
   iconUrl: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAVCAYAAADSM2daAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANQSURBVEhLrddNyBVlFMDx26dUaIpmaqaIIn6AUabiRtRyUYtIQtwkIiKKuBJ1pbZqEQSCtAtyUVAYJIqiGKJSlAtNXBSlhoZIH35/pqXp/3+95+2849x753o98IP3HWaeO/M8Z85z5pHa//EMnrz3Z6+4jct4Fx/iDxzBHmzBFXQaj+N1zMUUvIAncAE/YT8+x2k0jWH4G/+V8KYdfChu4k7ij6yDD9wqRsObWYLXcBh5nDI38BEGojR8ymMou/h3OBMTcR4+RPGcX/AqmsVyeF5MRL7W8S7hLP5pHMtOwtUojbUoXuAgLmOE6fQc3sE25Acwhd5GMR7Ft8jj6leswHBEmj6NmdiEvKoXMQ29YiScxTyo3kPO+2LMwFHE+dfwFnKYen8ij6uv0A/Nwtl1BeP8U3gePeEAeUDthLPULsy5vYjrfPhXEOFKlaXULcxBq/CB841/gnq8hMgzK4EnmUeDUDWexTeIwY8jXqCPEcflanwGH+YxtIupiFw3ZUah9kHjgDZgMIag07C6nECMtRnm6M9wpr/DUgxAJ+GDfYEYdw1q36cDkz3QRfiyOJOO5fIvwLiGVu9Gu3gDcY+7PWCp8R/rdJUcbherETlsuXwR3YapFmO6mvUi7j++4Q8jnkLO7+3og27CNLsOxzvngTzTVV6MKjEe1lbHNU0Wopu4b6YfZk47yxErET/0F9zKzXk3sXxelXgTcY+7PFCsHg8aVo88o97YPsTYVhFruOXLTalqFKvHKtQmIdfpeh3sMPrDzswqkWMsIv0yy2HVauLqxJbu++fuXY+8Ix5EX1QNNyF3RB/cjeR9mNMRdnbFJsmX3p6jXXhO3hEdvydGIPcehzAG7cJldveL66zRtrERblS5Nwk+xCK0CnfC3Hn+Bpu1XmGfawWJk7wB+1kvjo+D6PLmYQfiRZPtZbFZMs8PIJ8XnBjH9YMgd3mz8Slyl2ff3rT1nYUzyIPrX3j8ajqW2eC36qfdYEyTLxEr6vszAdMbf1t/LY/FsW1hcwNWGvYdNjTeaHGAIn9oPTopYc6uPfNiOLPLUDa2m8lG3NertHqDrSLzYdpYFawQLpnfbT/ga2yFafSgYar5Lfgy/Hqy0vwI+wtXxe/RQtRqdwEgIFgLirpDSAAAAABJRU5ErkJggg==
   tags:
@@ -128,15 +128,26 @@ accelerator:
 
 engine:
   merge:
-    
     - include: ["java-Tiltfile"]
       condition: "#workloadLanguage == 'java'"
       chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "RPLC_WORKLOAD_NAME"
+              with: "#workloadName"
+            - text: "RPLC_NAMESPACE_NAME"
+              with: "#objectNamespaceName"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
     - include: ["node-Tiltfile"]
       condition: "#workloadLanguage == 'node'"
       chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "RPLC_WORKLOAD_NAME"
+              with: "#workloadName"
+            - text: "RPLC_NAMESPACE_NAME"
+              with: "#objectNamespaceName"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
     - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml", configs/README.md]
