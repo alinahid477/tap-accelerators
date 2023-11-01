@@ -25,11 +25,11 @@ accelerator:
       inputType: select
       label: Choose workload type
       choices:
-      - value: "secure-server"
+      - value: "ingress"
         text: Traditional
       - value: "web"
         text: KNative
-      defaultValue: "secure-server"
+      defaultValue: "ingress"
       description: Workload type determines what type of deployment definition to be created by the CI path. Traditional type creates Deployment, Ingress and ClusterIP Service. KNative type creates KNative Serving Service.
       required: true
 
@@ -123,9 +123,20 @@ engine:
               with: "#workloadServicePort"
             - text: "RPLC_WORKLOAD_LANGUAGE"
               with: "#workloadLanguage"
+            
+
+        - type: ReplaceText
+          condition: "#isVanityUrl"
+          substitutions:
+            - text: "app.ingress/domain-category: RPLC_WORKLOAD_DOMAIN_CATEGORY"
+              with: "'app.ingress/vanity-url: \"' + #vanityUrl + '\"'"
+
+        - type: ReplaceText
+          condition: "!#isVanityUrl"
+          substitutions:
             - text: "RPLC_WORKLOAD_DOMAIN_CATEGORY"
               with: "#workloadDomainCategory"
-              
+
         - type: ReplaceText
           condition: "#workloadLanguage == 'nodejs'"
           substitutions:
