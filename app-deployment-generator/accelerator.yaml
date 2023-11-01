@@ -143,7 +143,7 @@ engine:
         - type: RewritePath
           regex: 'node-Tiltfile'
           rewriteTo: "'Tiltfile'"
-    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile"]
+    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml"]
       exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
