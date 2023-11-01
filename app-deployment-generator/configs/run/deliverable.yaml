@@ -14,8 +14,8 @@ spec:
   source:
     git:
       ref:
-        branch: deploy
-      url: https://gitlab.com/anahid-test/simple-webapp.git
+        branch: main
+      url: https://gitlab.service.nsw.gov.au/containers-poc2/build-server.git
   params:
     - name: gitops_ssh_secret
       value: git-secret
