@@ -137,16 +137,18 @@ engine:
     - include: ["java-Tiltfile"]
       condition: "#workloadLanguage == 'java'"
       chain:
+        - type: YTT
         - type: RewritePath
           regex: 'java-Tiltfile'
           rewriteTo: "'Tiltfile'"
     - include: ["java-Tiltfile"]
       condition: "#workloadLanguage == 'node'"
       chain:
+        - type: YTT
         - type: RewritePath
           regex: 'node-Tiltfile'
           rewriteTo: "'Tiltfile'"
-    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml"]
+    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml", configs/README.md]
       exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
