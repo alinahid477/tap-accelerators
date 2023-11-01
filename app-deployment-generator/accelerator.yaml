@@ -134,7 +134,16 @@ engine:
           substitutions:
             - text: "# app.ingress/domain: full.example.com"
               with: "app.ingress/domain: full.example.com"
-    
+    - include: ["java-Tiltfile"]
+      condition: "#workloadLanguage == 'java'"
+      chain:
+        - type: RewritePath
+          rewriteTo: "'Tiltfile'"
+    - include: ["node-Tiltfile"]
+      condition: "#workloadLanguage == 'node'"
+      chain:
+        - type: RewritePath
+          rewriteTo: "'Tiltfile'"
     - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml", configs/README.md]
       exclude: ["accelerator-log.md"]
       chain:
