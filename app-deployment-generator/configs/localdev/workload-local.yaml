@@ -2,7 +2,7 @@
 apiVersion: carto.run/v1alpha1
 kind: Workload
 metadata:
-  name: RPLC_WORKLOAD_NAME
+  name: RPLC_WORKLOAD_NAME-local
   namespace: RPLC_NAMESPACE_NAME
   labels:
     apps.tanzu.vmware.com/ci: "true"

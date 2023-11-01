@@ -1,7 +1,6 @@
 
 ### in build cluster
 
-
 ```
 kubectl apply -f build/workload.yaml
 ```

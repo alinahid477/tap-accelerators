@@ -121,7 +121,29 @@ accelerator:
 
 engine:
   merge:
-    - include: ["**/*"]
+    - include: ["configs/localdev/workload-local.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "# app.ingress/domain: full.example.com"
+              with: "app.ingress/domain: full.example.com"
+        - type: OpenRewriteRecipe
+          recipe: org.openrewrite.yaml.DeleteProperty
+          options:
+            propertyKey: "'metadata.labels.apps.tanzu.vmware.com/ci'"
+    - include: ["java-Tiltfile"]
+      condition: "#workloadLanguage == 'java'"
+      chain:
+        - type: RewritePath
+          regex: 'java-Tiltfile'
+          rewriteTo: "'Tiltfile'"
+    - include: ["java-Tiltfile"]
+      condition: "#workloadLanguage == 'node'"
+      chain:
+        - type: RewritePath
+          regex: 'node-Tiltfile'
+          rewriteTo: "'Tiltfile'"
+    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile"]
       exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
@@ -172,3 +194,6 @@ engine:
               with: "'spec:\n  build:\n    env:\n    - name: BP_JVM_VERSION\n      value: \"17\"'"
             - text: "env:"
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
+            - text: "labels:"
+              with: "'labels:\n    apps.tanzu.vmware.com/auto-configure-actuators: \"true\"'"
+
