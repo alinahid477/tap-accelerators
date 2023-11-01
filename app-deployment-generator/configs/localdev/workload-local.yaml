@@ -5,7 +5,6 @@ metadata:
   name: RPLC_WORKLOAD_NAME-local
   namespace: RPLC_NAMESPACE_NAME
   labels:
-    apps.tanzu.vmware.com/ci: "true"
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: RPLC_WORKLOAD_TYPE
     app.kubernetes.io/part-of: RPLC_CATALOG_NAME

@@ -134,10 +134,6 @@ engine:
           substitutions:
             - text: "# app.ingress/domain: full.example.com"
               with: "app.ingress/domain: full.example.com"
-        - type: OpenRewriteRecipe
-          recipe: org.openrewrite.yaml.DeleteProperty
-          options:
-            propertyKey: "'metadata.labels.apps.tanzu.vmware.com/ci'"
     - include: ["java-Tiltfile"]
       condition: "#workloadLanguage == 'java'"
       chain:
