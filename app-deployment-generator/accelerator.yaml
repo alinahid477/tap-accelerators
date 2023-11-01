@@ -34,10 +34,17 @@ accelerator:
       required: true
 
     - name: catalogName
-      inputType: text
-      label: Catalog name
-      description: Catalog groups multiple workloads together and create dependency graph. This is useful for multi-app projects. If you do not have catalog use the workload name here.
-      defaultValue: "sample"
+      inputType: select
+      label: Choose application catalog
+      description: Catalog groups multiple workloads together in the catalog console.
+      choices:
+      - value: "tap-apps"
+        text: Tap Apps
+      - value: "team1"
+        text: Team 1
+      - value: "team2"
+        text: Team 2
+      defaultValue: "tap-apps"
       required: true    
 
     - name: workloadLanguage
