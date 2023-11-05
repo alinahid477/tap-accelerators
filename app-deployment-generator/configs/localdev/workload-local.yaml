@@ -21,8 +21,8 @@ spec:
     - name: SAMPLE_VARIABLE
       value: "Sample"
   params:
-    - name: gitops_ssh_secret
-      value: src-git-secret 
+    # - name: gitops_ssh_secret
+    #   value: src-git-secret 
     - name: ports
       value:
       - containerPort: RPLC_WORKLOAD_CONTAINER_PORT
