@@ -1,16 +1,17 @@
 LOCAL_PATH = os.getenv("LOCAL_PATH", default='.')
 NAMESPACE = os.getenv("NAMESPACE", default='RPLC_NAMESPACE_NAME')
-OUTPUT_TO_NULL_COMMAND = os.getenv("OUTPUT_TO_NULL_COMMAND", default=' > /dev/null ')
-allow_k8s_contexts('YOUR_K8S_CONTEXT')
+OUTPUT_COMMAND = os.getenv("OUTPUT_COMMAND", default=' --output yaml ')
+ALLOW_K8S_CONTEXT = os.getenv("ALLOW_K8S_CONTEXT", default='CURRENT_K8S_CONTEXT')
+allow_k8s_contexts(ALLOW_K8S_CONTEXT)
 update_settings ( max_parallel_updates = 3 , k8s_upsert_timeout_secs = 3000 , suppress_unused_image_warnings = None )
 k8s_custom_deploy(
-    'RPLC_WORKLOAD_NAME',
+    'RPLC_WORKLOAD_NAME-local',
     apply_cmd="tanzu apps workload apply -f configs/localdev/workload-local.yaml --update-strategy replace --debug --live-update" +
                " --local-path " + LOCAL_PATH +
                " --namespace " + NAMESPACE +
                " --yes " +
-               OUTPUT_TO_NULL_COMMAND +
-               " && kubectl get workload RPLC_WORKLOAD_NAME --namespace " + NAMESPACE + " -o yaml",
+               OUTPUT_COMMAND +
+               " && kubectl get workload RPLC_WORKLOAD_NAME-local --namespace " + NAMESPACE + " -o yaml",
     delete_cmd="tanzu apps workload delete -f configs/localdev/workload-local.yaml --namespace " + NAMESPACE + " --yes",
     deps=['pom.xml', './target/classes'],
     container_selector='workload',
@@ -19,5 +20,5 @@ k8s_custom_deploy(
     ]
 )
 
-k8s_resource('RPLC_WORKLOAD_NAME', port_forwards=["8080:8080"],
-            extra_pod_selectors=[{'carto.run/workload-name': 'RPLC_WORKLOAD_NAME'}])
+k8s_resource('RPLC_WORKLOAD_NAME-local', port_forwards=["RPLC_WORKLOAD_CONTAINER_PORT:RPLC_WORKLOAD_CONTAINER_PORT"],
+            extra_pod_selectors=[{'carto.run/workload-name': 'RPLC_WORKLOAD_NAME-local', 'app.kubernetes.io/component': 'run'}])

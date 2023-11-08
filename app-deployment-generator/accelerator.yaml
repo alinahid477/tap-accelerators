@@ -122,14 +122,28 @@ accelerator:
         name: isVanityUrl
         value: false
 
+    - name: isIncludeTiltfile
+      description: Check this box if you would like to include Tiltfile for local development. Please note, you will require tilt tool installed in your local envirionment.
+      defaultValue: false
+      label: Include filed for local development
+      inputType: checkbox
+      dataType: boolean
+      required: true 
 
+    - name: currentK8sContext
+      inputType: text
+      label: K8s context name
+      description:  Provide the current K8s context name to allow permission to use for local development.
+      required: true
+      dependsOn: 
+        name: isIncludeTiltfile
 
     
 
 engine:
   merge:
     - include: ["java-Tiltfile"]
-      condition: "#workloadLanguage == 'java'"
+      condition: "#workloadLanguage == 'java' && #isIncludeTiltfile"
       chain:
         - type: ReplaceText
           substitutions:
@@ -137,10 +151,14 @@ engine:
               with: "#workloadName"
             - text: "RPLC_NAMESPACE_NAME"
               with: "#objectNamespaceName"
+            - text: "RPLC_WORKLOAD_CONTAINER_PORT"
+              with: "#workloadContainerPort"
+            - text: CURRENT_K8S_CONTEXT
+              with: "#currentK8sContext"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
     - include: ["node-Tiltfile"]
-      condition: "#workloadLanguage == 'node'"
+      condition: "#workloadLanguage == 'node' && #isIncludeTiltfile"
       chain:
         - type: ReplaceText
           substitutions:
@@ -148,6 +166,10 @@ engine:
               with: "#workloadName"
             - text: "RPLC_NAMESPACE_NAME"
               with: "#objectNamespaceName"
+            - text: "RPLC_WORKLOAD_CONTAINER_PORT"
+              with: "#workloadContainerPort"
+            - text: CURRENT_K8S_CONTEXT
+              with: "#currentK8sContext"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
     - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml", configs/README.md]
@@ -203,4 +225,5 @@ engine:
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
             - text: "labels:"
               with: "'labels:\n    apps.tanzu.vmware.com/auto-configure-actuators: \"true\"'"
-
+    - exclude: ["configs/localdev/workload-local.yaml"]
+      condition: "#isIncludeTiltfile"
