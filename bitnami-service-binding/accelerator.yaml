@@ -1,0 +1,76 @@
+accelerator:
+  displayName: Example Bitnami Service Claim
+  description: Generate ClassClaim yaml config for Service Binding to bitnami resources (redis, rabbitmq).
+  iconUrl: data:image/jpg;base64,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
+  tags:
+    - tanzu
+    - ServiceBinding
+    - RabbitMQ
+    - Redis
+    
+  options:
+    - name: clusterInstanceClassName
+      inputType: select
+      label: Choose Cluster Instance Class
+      choices:
+      - value: "rabbitmq-unmanaged"
+        text: Bitnami RabbitMQ
+      - value: "redis-unmanaged"
+        text: Bitnami Redis
+      description: Service binding instance class name. Please ask your operator for the correct one. 
+      required: true
+
+    - name: classclaimName
+      inputType: text
+      label: Class Claim Name
+      description: AWS instance will be created prefixing using this value as well. 
+      required: true
+    
+    - name: classclaimNamespace
+      inputType: text
+      label: Class Claim Namespace
+      description: The namespace where this class claim CRD will be created. Application consuming this claim will need to reside in the same namespace. 
+      defaultValue: "default"
+      required: true
+
+    - name: storageGB
+      inputType: text
+      label: Storage GB
+      description: The desired storage capacity in Gigabytes.
+      defaultValue: "1"
+      required: true
+
+    - name: replicasCount
+      inputType: text
+      label: Replicas
+      description: The desired number of replicas forming the cluster
+      defaultValue: "1"
+      required: true
+      dependsOn:
+        name: clusterInstanceClassName
+        value: rabbitmq-unmanaged
+      
+
+    
+engine:
+  merge:
+    - include: ["classclaim.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: RPLC_CLUSTER_INSTANCE_CLASS_NAME
+              with: "#clusterInstanceClassName"
+            - text: "RPLC_NAME"
+              with: "#classclaimName"
+            - text: "RPLC_DEPLOYMENT_NAMESPACE"
+              with: "#classclaimNamespace"
+            - text: "RPLC_STORAGE_GB"
+              with: "#storageGB"
+        - type: ReplaceText
+          condition: "#clusterInstanceClassName == 'rabbitmq-unmanaged'"
+          substitutions:
+            - text: "# replicas"
+              with: "replicas: #replicasCount"
+        - type: Exclude
+          patterns: ["accelerator-log.md"]
+

@@ -39,6 +39,19 @@ spec:
 apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
 kind: Accelerator
 metadata:
+  name: bitnami-service-binding
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: main
+    url: https://github.com/alinahid477/tap-accelerators.git
+    subPath: bitnami-service-binding
+
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
   name: app-deployment-generator
   namespace: accelerator-system
 spec:
