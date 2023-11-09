@@ -9,7 +9,7 @@ metadata:
     apps.tanzu.vmware.com/workload-type: RPLC_WORKLOAD_TYPE
     app.kubernetes.io/part-of: RPLC_CATALOG_NAME
     app.ingress/domain-category: RPLC_WORKLOAD_DOMAIN_CATEGORY
-    app.ingress/domain: full.example.com
+    app.ingress/domain: cluster1.poc2.k8stest.testservicensw.net
     app.ingress/port: "RPLC_WORKLOAD_SERVICE_PORT"
 spec:
   source:
