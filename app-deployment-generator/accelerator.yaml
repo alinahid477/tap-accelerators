@@ -143,7 +143,7 @@ accelerator:
 engine:
   merge:
     - include: ["java-Tiltfile"]
-      condition: "#workloadLanguage == 'java' && #isIncludeTiltfile"
+      condition: "#workloadLanguage == 'java' && #isIncludeTiltfile == true"
       chain:
         - type: ReplaceText
           substitutions:
@@ -158,7 +158,7 @@ engine:
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
     - include: ["node-Tiltfile"]
-      condition: "#workloadLanguage == 'node' && #isIncludeTiltfile"
+      condition: "#workloadLanguage == 'node' && #isIncludeTiltfile == true"
       chain:
         - type: ReplaceText
           substitutions:
@@ -172,7 +172,7 @@ engine:
               with: "#currentK8sContext"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
-    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "Tiltfile", "configs/localdev/workload-local.yaml", configs/README.md]
+    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "configs/localdev/workload-local.yaml", configs/README.md]
       exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
