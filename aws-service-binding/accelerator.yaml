@@ -130,7 +130,7 @@ accelerator:
 
 engine:
   merge:
-    - include: ["**/*"]
+    - include: ["rds-classclaim.yaml"]
       exclude: ["accelerator-log.md"]
       chain:
         - type: ReplaceText
