@@ -1,0 +1,11 @@
+apiVersion: services.apps.tanzu.vmware.com/v1alpha1
+kind: ClassClaim
+metadata:
+  name: RPLC_NAME
+  namespace: RPLC_DEPLOYMENT_NAMESPACE
+spec:
+  classRef:
+    name: RPLC_CLUSTER_INSTANCE_CLASS_NAME
+  parameters:
+    storageGB: RPLC_STORAGE_GB
+    # replicas
