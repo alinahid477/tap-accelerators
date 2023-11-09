@@ -69,8 +69,8 @@ engine:
         - type: ReplaceText
           condition: "#clusterInstanceClassName == 'rabbitmq-unmanaged'"
           substitutions:
-            - text: "# replicas"
-              with: "replicas: #replicasCount"
+            - text: "parameters:"
+              with: "parameters:\n    replicas: #replicasCount"
         - type: Exclude
           patterns: ["accelerator-log.md"]
 

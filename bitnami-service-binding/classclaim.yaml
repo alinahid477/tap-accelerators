@@ -8,4 +8,3 @@ spec:
     name: RPLC_CLUSTER_INSTANCE_CLASS_NAME
   parameters:
     storageGB: RPLC_STORAGE_GB
-    # replicas
