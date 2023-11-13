@@ -122,6 +122,49 @@ accelerator:
         name: isVanityUrl
         value: false
 
+
+    - name: isServiceBinding
+      description: Check this box if you would like use Service Binding for this application.
+      defaultValue: false
+      label: Add Service Binding
+      inputType: checkbox
+      dataType: boolean
+      required: true 
+
+    - name: serviceBindingName
+      inputType: text
+      label: Service Binding Name
+      description:  This is just a value for key. It does not get used in mapping service binding.
+      required: true
+      dependsOn: 
+        name: isServiceBinding
+        value: true
+    
+    - name: serviceBindingKind
+      inputType: select
+      label: Choose Service Binding Kind
+      choices:
+      - value: "ClassClaim"
+        text: Class Claim
+      - value: "ConfigMap"
+        text: Config Map
+      defaultValue: "none"
+      description: This section applies service binding accordingly to a existing service. User Class Claim to bind to external resources such as DBs, Queues etc. Use config map to bind to an existing Config Map object. Please Note, currently, this accelerator support only 1 binding. If you require more than one binding (eg binding to multiple DBs or DB and configmap etc) please modify the generated yaml file and add another binding block under \"serviceClaims\" section.
+      required: true
+      dependsOn: 
+        name: isServiceBinding
+        value: true
+
+    - name: serviceBindingResourceName
+      inputType: text
+      label: Name of the resouce for Service Binding
+      description:  Provide the name of resource to bind to. This is the name of the actual object. For example name of the classclaim to DB or configmap object present in the K8s cluster. Note, this will bind to an existing entity. For creating ClassClaim to DBs use Service Binding accelerator.
+      required: true
+      dependsOn: 
+        name: isServiceBinding
+        value: true
+
+
     - name: isIncludeTiltfile
       description: Check this box if you would like to include Tiltfile for local development. Please note, you will require tilt tool installed in your local envirionment.
       defaultValue: false
@@ -224,6 +267,12 @@ engine:
               with: "'env:\n    - name: spring_profiles_active\n      value: pgsql'"
             - text: "labels:"
               with: "'labels:\n    apps.tanzu.vmware.com/auto-configure-actuators: \"true\"'"
+
+        - type: ReplaceText
+          condition: "#isServiceBinding"
+          substitutions:
+            - text: "spec:"
+              with: "'spec:\n  serviceClaims:\n    - name: '+ #serviceBindingName +'\n      ref:\n        apiVersion: services.apps.tanzu.vmware.com/v1alpha1\n        kind: ' + #serviceBindingKind + '\n        name: ' + #serviceBindingResourceName"
         - type: Exclude
           patterns: ["configs/localdev/workload-local.yaml"]
           condition: "#isIncludeTiltfile == false"
