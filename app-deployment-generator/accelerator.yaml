@@ -273,6 +273,11 @@ engine:
           substitutions:
             - text: "spec:"
               with: "'spec:\n  serviceClaims:\n    - name: '+ #serviceBindingName +'\n      ref:\n        apiVersion: services.apps.tanzu.vmware.com/v1alpha1\n        kind: ' + #serviceBindingKind + '\n        name: ' + #serviceBindingResourceName"
+        - type: ReplaceText
+          condition: "#isServiceBinding == true && #serviceBindingKind == 'ConfigMap'"
+          substitutions:
+            - text: "apiVersion: services.apps.tanzu.vmware.com/v1alpha1"
+              with: "'apiVersion: v1'"
         - type: Exclude
           patterns: ["configs/localdev/workload-local.yaml"]
           condition: "#isIncludeTiltfile == false"
