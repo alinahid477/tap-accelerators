@@ -109,8 +109,8 @@ accelerator:
       choices:
       - value: "api"
         text: api
-      - value: "internal"
-        text: internal
+      - value: "apps-int"
+        text: apps-int
       - value: "external"
         text: external
       - value: "apps"
