@@ -52,6 +52,19 @@ spec:
 apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
 kind: Accelerator
 metadata:
+  name: secret-service-binding
+  namespace: accelerator-system
+spec:
+  git:
+    ref:
+      branch: main
+    url: https://github.com/alinahid477/tap-accelerators.git
+    subPath: secret-service-binding
+    
+---
+apiVersion: accelerator.apps.tanzu.vmware.com/v1alpha1
+kind: Accelerator
+metadata:
   name: app-deployment-generator
   namespace: accelerator-system
 spec:
@@ -60,3 +73,5 @@ spec:
       branch: main
     url: https://github.com/alinahid477/tap-accelerators.git
     subPath: app-deployment-generator
+
+

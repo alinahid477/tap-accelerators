@@ -134,7 +134,7 @@ accelerator:
     - name: serviceBindingName
       inputType: text
       label: Service Binding Name
-      description:  This is just a value for key. It does not get used in mapping service binding.
+      description:  This is just a value for key. It does not get used in mapping service binding. For example; db, myconfig etc
       required: true
       dependsOn: 
         name: isServiceBinding
@@ -146,6 +146,8 @@ accelerator:
       choices:
       - value: "ClassClaim"
         text: Class Claim
+      - value: "ResourceClaim"
+        text: Resource Claim
       - value: "ConfigMap"
         text: Config Map
       defaultValue: "none"

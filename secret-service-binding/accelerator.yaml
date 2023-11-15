@@ -1,0 +1,195 @@
+accelerator:
+  displayName: Example Secret Resource Claim
+  description: Generate secret and secret projection to bind to an existing secret that contains details for existing resource.
+  iconUrl: data:image/png;base64,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
+  tags:
+    - tanzu
+    - ServiceBinding
+    - Secret
+
+  options:
+    - name: objectType
+      inputType: select
+      label: Choose the object you would like to create
+      choices:
+      - value: "resourceClaim"
+        text: ResourceClaim
+      - value: "dbSecret"
+        text: DB Secret
+      description: If you already have the secret for the existing resource (eg pgsql or mysql) in the cluster please select ResourceClaim. If you had provisioned the resource (pgsql or mysql) using AWS ServiceBinding previously in this cluster there should be a secret created the same namespace. In order to create a new secret for DB Secret option.
+      defaultValue: "resourceClaim"
+      required: true
+    
+
+    - name: resourceclaimName
+      inputType: text
+      label: Resource Claim Name
+      description: Name of the Resource Claim. You will be referring to this name in your application's workload.yaml to bind to the resource. For example, mydb-secret
+      required: true
+      dependsOn:
+        name: objectType
+        value: resourceClaim
+
+    - name: resourceclaimNamespace
+      inputType: text
+      label: Resource Claim Namespace
+      description: The namespace where this resource claim CRD will be created. This ResourceClaim CRD needs to exist in the namespace as the application consuming or binding to this claim. For example, myapp-namespace 
+      required: true
+      dependsOn:
+        name: objectType
+        value: resourceClaim
+
+    - name: resourceclaimSecretName
+      inputType: text
+      label: Secret name
+      description: The name of the exiting secret to connect to the database. If you provisioned the resource (pgsql or mysql) using AWS ServiceBinding previously in this cluster there you will find the secret (dynamically created) in the same namespace.
+      required: true
+      dependsOn:
+        name: objectType
+        value: resourceClaim
+
+    - name: resourceclaimSecretNamespace
+      inputType: text
+      label: Secret namespace
+      description: The namespace of the existing secret (to connect to the database). If you provisioned the resource (pgsql or mysql) using AWS ServiceBinding previously in this cluster there you will find the secret (dynamically created) in the same namespace.
+      required: true
+      dependsOn:
+        name: objectType
+        value: resourceClaim
+
+
+
+    - name: secretName
+      inputType: text
+      label: Name of the secret
+      description: Name of the K8s secret. Note, this is an Opaque type K8s secret object.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretNamespace
+      inputType: text
+      label: Namespace of the secret
+      description: The namespace where this K8s secret will be created. 
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+
+    - name: secretType
+      inputType: select
+      label: Secret type
+      choices:
+      - value: "postgresql"
+        text: PostgreSQL
+      - value: "mysql"
+        text: MySQL
+      description: This is part of the connection string. Only PostgreSQL and MySQL is mapped currently. More can be made available.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretProvider
+      inputType: select
+      label: Secret provider
+      choices:
+      - value: "aws"
+        text: AWS
+      description: This is part of the connection string. Only AWS is mapped currently. More can be made available. 
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretDatabase
+      inputType: text
+      label: DB Name
+      description: This is part of the connection string.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretHost
+      inputType: text
+      label: DB Host URL
+      description: This is part of the connection string.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretPort
+      inputType: text
+      label: Port
+      description: This is part of the connection string.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretUsername
+      inputType: text
+      label: Username
+      description: This is part of the connection string.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+    - name: secretPassword
+      inputType: text
+      label: Password
+      description: This is part of the connection string.
+      required: true
+      dependsOn:
+        name: objectType
+        value: dbSecret
+
+engine:
+  merge:
+    - condition: "#objectType == 'resourceClaim'"
+      include: ["secret-claim.yaml"]
+      exclude: ["accelerator-log.md"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: RPLC_RESOURCE_CLAIM_NAME
+              with: "#resourceclaimName"
+            - text: "RPLC_RESOURCECLAIM_NAMESPACE"
+              with: "#resourceclaimNamespace"
+            - text: "RPLC_EXISTING_SECRET_NAMESPACE"
+              with: "#resourceclaimSecretNamespace"
+            - text: "RPLC_EXISTING_SECRET_REF"
+              with: "#resourceclaimSecretName"
+
+    - condition: "#objectType == 'dbSecret'"
+      include: ["db-secret.yaml"]
+      exclude: ["accelerator-log.md"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: RPLC_SECRET_NAME
+              with: "#secretName"
+            - text: "RPLC_NAMESPACE"
+              with: "#secretNamespace"
+            - text: "RPLC_CONNECTION_TYPE"
+              with: "#secretType"
+            - text: "RPLC_CONNECTION_PROVIDER"
+              with: "#secretProvider" 
+            - text: "RPLC_CONNECTION_HOST"
+              with: "#secretHost"
+            - text: "RPLC_CONNECTION_PORT"
+              with: "#secretPort"
+            - text: "RPLC_CONNECTION_DATABASE"
+              with: "#secretDatabase"
+            - text: "RPLC_CONNECTION_USERNAME"
+              with: "#secretUsername"
+            - text: "RPLC_CONNECTION_PASSWORD"
+              with: "#secretPassword"
+
+        
+
