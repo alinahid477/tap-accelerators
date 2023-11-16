@@ -65,6 +65,14 @@ accelerator:
       defaultValue: "java"
       required: true
 
+    - name: isSkipTest
+      description: Check this box if do not have unit testing in your application.
+      defaultValue: false
+      label: Skip running test
+      inputType: checkbox
+      dataType: boolean
+      required: true
+
     - name: workloadGitUrl
       inputType: text
       label: HTTPS Git Url of source code project
@@ -257,6 +265,11 @@ engine:
           substitutions:
             - text: "src-git-secret-RPLC_WORKLOAD_NAME"
               with: "'src-git-secret'"
+        - type: ReplaceText
+          condition: "#isSkipTest"
+          substitutions:
+            - text: "RPLC_WORKLOAD_LANGUAGE"
+              with: "'skip'"
         - type: ReplaceText
           substitutions:
             - text: "RPLC_WORKLOAD_NAME"
