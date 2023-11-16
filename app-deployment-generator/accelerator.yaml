@@ -208,7 +208,7 @@ accelerator:
     - name: isIncludeTiltfile
       description: Check this box if you would like to include Tiltfile for local development. Please note, you will require tilt tool installed in your local envirionment.
       defaultValue: false
-      label: Include filed for local development
+      label: Include files for local development
       inputType: checkbox
       dataType: boolean
       required: true 
@@ -218,6 +218,7 @@ accelerator:
       label: K8s context name
       description:  Provide the current K8s context name to allow permission to use for local development.
       required: true
+      defaultValue: "eks.poc2.ap-southeast-2.cluster1-tap-eks"
       dependsOn: 
         name: isIncludeTiltfile
 
