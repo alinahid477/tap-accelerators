@@ -128,6 +128,32 @@ accelerator:
         value: false
 
 
+    - name: isIncludeGitSecret
+      description: Check this box if you would like create K8s secret object for Source Code repository/project authentication
+      defaultValue: false
+      label: Include src-git-secret.yaml file
+      inputType: checkbox
+      dataType: boolean
+      required: true
+
+    - name: gitSecretUsername
+      inputType: text
+      label: Username
+      description: Username for git repository or project. For GitLab use the name of the token.
+      required: true
+      dependsOn:
+        name: isIncludeGitSecret
+
+    - name: gitSecretToken
+      inputType: text
+      label: Password
+      description: Generated token for git repository or project or group.
+      required: true
+      dependsOn:
+        name: isIncludeGitSecret
+
+
+
     - name: isServiceBinding
       description: Check this box if you would like use Service Binding for this application.
       defaultValue: false
@@ -188,7 +214,9 @@ accelerator:
       dependsOn: 
         name: isIncludeTiltfile
 
+
     
+
 
 engine:
   merge:
@@ -224,6 +252,11 @@ engine:
           rewriteTo: "'Tiltfile'"
     - include: ["configs/build/workload.yaml", "configs/localdev/workload-local.yaml", configs/README.md]
       chain:
+        - type: ReplaceText
+          condition: "!#isIncludeGitSecret"
+          substitutions:
+            - text: "src-git-secret-RPLC_WORKLOAD_NAME"
+              with: "'src-git-secret'"
         - type: ReplaceText
           substitutions:
             - text: "RPLC_WORKLOAD_NAME"
@@ -303,3 +336,16 @@ engine:
               with: "#workloadType"
             - text: "RPLC_CATALOG_NAME"
               with: "#catalogName"
+
+    - include: ["configs/build/src-git-secret.yaml"]
+      condition: "#isIncludeGitSecret"
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "RPLC_WORKLOAD_NAME"
+              with: "#workloadName"
+            - text: "RPLC_GIT_USERNAME"
+              with: "#gitSecretUsername"
+            - text: "RPLC_GIT_TOKEN"
+              with: "#gitSecretToken"
+            
