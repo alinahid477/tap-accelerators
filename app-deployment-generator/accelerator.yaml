@@ -16,14 +16,14 @@ accelerator:
     
     - name: objectWorkloadNamespaceName
       inputType: text
-      label: Namespace
-      description: The namespace in build cluster where the workload or CI will be created.
+      label: CI / Workload Namespace
+      description: The namespace in build cluster where the workload or CI will be created. You will deploy workload.yaml in this namespace.
       required: true
 
     - name: objectDeliverableNamespaceName
       inputType: text
-      label: Namespace
-      description: The namespace in run cluster where the deliverable or CD will be created.
+      label: CD / Deliverable Namespace
+      description: The namespace in run cluster where the deliverable or CD will be created. You will deploy deliverable.yaml in this namespace.
       required: true
 
     - name: workloadType
