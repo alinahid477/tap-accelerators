@@ -8,17 +8,22 @@ accelerator:
     - localdev
     
   options:
-    - name: objectNamespaceName
-      inputType: text
-      label: Namespace
-      description: The namespace where the workload and deliverable will be created. Typically, this is the namespace where you have been given access to.
-      defaultValue: "default"
-      required: true
-
     - name: workloadName
       inputType: text
       label: Workload name
       description: The name of the workload. Typically this is same name as the application. 
+      required: true
+    
+    - name: objectWorkloadNamespaceName
+      inputType: text
+      label: Namespace
+      description: The namespace in build cluster where the workload or CI will be created.
+      required: true
+
+    - name: objectDeliverableNamespaceName
+      inputType: text
+      label: Namespace
+      description: The namespace in run cluster where the deliverable or CD will be created.
       required: true
 
     - name: workloadType
@@ -195,7 +200,7 @@ engine:
             - text: "RPLC_WORKLOAD_NAME"
               with: "#workloadName"
             - text: "RPLC_NAMESPACE_NAME"
-              with: "#objectNamespaceName"
+              with: "#objectWorkloadNamespaceName"
             - text: "RPLC_WORKLOAD_CONTAINER_PORT"
               with: "#workloadContainerPort"
             - text: CURRENT_K8S_CONTEXT
@@ -210,21 +215,21 @@ engine:
             - text: "RPLC_WORKLOAD_NAME"
               with: "#workloadName"
             - text: "RPLC_NAMESPACE_NAME"
-              with: "#objectNamespaceName"
+              with: "#objectWorkloadNamespaceName"
             - text: "RPLC_WORKLOAD_CONTAINER_PORT"
               with: "#workloadContainerPort"
             - text: CURRENT_K8S_CONTEXT
               with: "#currentK8sContext"
         - type: RewritePath
           rewriteTo: "'Tiltfile'"
-    - include: ["configs/build/workload.yaml", "configs/run/deliverable.yaml", "configs/localdev/workload-local.yaml", configs/README.md]
+    - include: ["configs/build/workload.yaml", "configs/localdev/workload-local.yaml", configs/README.md]
       chain:
         - type: ReplaceText
           substitutions:
             - text: "RPLC_WORKLOAD_NAME"
               with: "#workloadName"
             - text: "RPLC_NAMESPACE_NAME"
-              with: "#objectNamespaceName"
+              with: "#objectWorkloadNamespaceName"
             - text: "RPLC_WORKLOAD_TYPE"
               with: "#workloadType"
             - text: "RPLC_CATALOG_NAME"
@@ -284,3 +289,17 @@ engine:
           patterns: ["configs/localdev/workload-local.yaml"]
           condition: "#isIncludeTiltfile == false"
       
+    - include: ["configs/run/deliverable.yaml"]
+      chain:
+        - type: ReplaceText
+          substitutions:
+            - text: "RPLC_WORKLOAD_NAME"
+              with: "#workloadName"
+            - text: "RPLC_NAMESPACE_NAME"
+              with: "#objectWorkloadNamespaceName"
+            - text: "RPLC_DELIVERABLE_NAMESPACE_NAME"
+              with: "#objectDeliverableNamespaceName"
+            - text: "RPLC_WORKLOAD_TYPE"
+              with: "#workloadType"
+            - text: "RPLC_CATALOG_NAME"
+              with: "#catalogName"

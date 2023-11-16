@@ -2,7 +2,7 @@ apiVersion: carto.run/v1alpha1
 kind: Deliverable
 metadata:
   name: RPLC_WORKLOAD_NAME
-  namespace: RPLC_NAMESPACE_NAME
+  namespace: RPLC_DELIVERABLE_NAMESPACE_NAME
   labels:
     app.kubernetes.io/component: deliverable
     app.tanzu.vmware.com/deliverable-type: web
