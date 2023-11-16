@@ -62,6 +62,8 @@ accelerator:
         text: NodeJS
       - value: "python"
         text: Python
+      - value: "go"
+        text: Go
       defaultValue: "java"
       required: true
 
