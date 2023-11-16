@@ -7,11 +7,12 @@
 
 ```
 kubectl apply -f build/workload.yaml
+kubectl apply -f build/src-git-secret.yaml
 ```
 
 The above command will create:
-- a workload to connect to supplychain (CI pipeline)
-- a secret called src-git-secret (refered in workload.yaml) for the supplychain to pull application source code.
+- a workload to connect to supplychain (CI pipeline) in the build cluster.
+- a secret called src-git-secret-RPLC_WORKLOAD_NAME (refered in workload.yaml) for the supplychain to pull application source code.
 
 To see the logs for supplychain execution run the below command:
 
