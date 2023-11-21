@@ -361,4 +361,6 @@ engine:
               with: "#gitSecretUsername"
             - text: "RPLC_GIT_TOKEN"
               with: "#gitSecretToken"
+            - text: "RPLC_NAMESPACE_NAME"
+              with: "#objectWorkloadNamespaceName"
             
