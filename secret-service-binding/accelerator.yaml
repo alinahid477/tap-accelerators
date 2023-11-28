@@ -24,7 +24,7 @@ accelerator:
     - name: resourceclaimName
       inputType: text
       label: Resource Claim Name
-      description: Name of the Resource Claim. You will be referring to this name in your application's workload.yaml to bind to the resource. For example, mydb-secret
+      description: Name of the Resource Claim. This is the name you will be referencing in your workload.yaml to bind to the resource. For example, mydb-secret
       required: true
       dependsOn:
         name: objectType
