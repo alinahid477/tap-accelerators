@@ -305,7 +305,7 @@ engine:
               with: "#workloadDomainCategory"
 
         - type: ReplaceText
-          condition: "#workloadLanguage == 'nodejs'"
+          condition: "#workloadLanguage == 'node'"
           substitutions:
             - text: "spec:"
               with: "'spec:\n  build:\n    env:\n    - name: BP_NODE_RUN_SCRIPTS\n      value: \"build\"'"
